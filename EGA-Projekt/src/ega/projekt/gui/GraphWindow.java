@@ -32,6 +32,8 @@ public class GraphWindow extends javax.swing.JFrame {
 
         DrawPanel = new javax.swing.JPanel();
         NextButton = new javax.swing.JButton();
+        AutoButton = new javax.swing.JToggleButton();
+        Delay = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Effiziente Graphenalgorithmen");
@@ -57,6 +59,15 @@ public class GraphWindow extends javax.swing.JFrame {
             }
         });
 
+        AutoButton.setText("Auto");
+        AutoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AutoButtonActionPerformed(evt);
+            }
+        });
+
+        Delay.setText("5");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -66,7 +77,11 @@ public class GraphWindow extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DrawPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 655, Short.MAX_VALUE)
+                        .addGap(0, 363, Short.MAX_VALUE)
+                        .addComponent(Delay, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(AutoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(NextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -76,7 +91,10 @@ public class GraphWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(DrawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(NextButton, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(NextButton, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                    .addComponent(AutoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Delay))
                 .addContainerGap())
         );
 
@@ -86,6 +104,10 @@ public class GraphWindow extends javax.swing.JFrame {
     private void NextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_NextButtonActionPerformed
+
+    private void AutoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AutoButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AutoButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,6 +145,8 @@ public class GraphWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton AutoButton;
+    private javax.swing.JTextField Delay;
     private javax.swing.JPanel DrawPanel;
     private javax.swing.JButton NextButton;
     // End of variables declaration//GEN-END:variables

@@ -30,7 +30,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="DrawPanel" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="0" pref="655" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="363" max="32767" attributes="0"/>
+                      <Component id="Delay" min="-2" pref="118" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="AutoButton" min="-2" pref="138" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="NextButton" min="-2" pref="125" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -44,7 +48,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="DrawPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="NextButton" pref="56" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="NextButton" pref="56" max="32767" attributes="0"/>
+                  <Component id="AutoButton" max="32767" attributes="0"/>
+                  <Component id="Delay" max="32767" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -80,6 +88,19 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NextButtonActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="AutoButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Auto"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AutoButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="Delay">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="5"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
