@@ -5,6 +5,7 @@
  */
 package ega.projekt.gui;
 
+import ega.project.graph.Properties;
 import javax.swing.text.MaskFormatter;
 import java.lang.System.*;
 /**
@@ -12,6 +13,7 @@ import java.lang.System.*;
  * @author Mike Demele
  */
 public class PropertiesWindow extends javax.swing.JFrame {
+    Properties props;
 
     /**
      * Creates new form PropertiesWindow
@@ -26,6 +28,18 @@ public class PropertiesWindow extends javax.swing.JFrame {
         }
         initComponents();
     }
+    
+    public PropertiesWindow(Properties graph_prop) {
+        try{
+            formatter=new MaskFormatter("###########################################");
+        }catch(Exception e){
+            formatter=null;
+            System.out.println("Error setting up formatter");
+            return;
+        }
+        props = graph_prop;
+        initComponents();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,11 +51,11 @@ public class PropertiesWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField(formatter);
+        jnodes = new javax.swing.JFormattedTextField(formatter);
         jLabel2 = new javax.swing.JLabel();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField(formatter);
+        jcapacity = new javax.swing.JFormattedTextField(formatter);
         jLabel3 = new javax.swing.JLabel();
-        jFormattedTextField3 = new javax.swing.JFormattedTextField(formatter);
+        jinstances = new javax.swing.JFormattedTextField(formatter);
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -50,9 +64,15 @@ public class PropertiesWindow extends javax.swing.JFrame {
 
         jLabel1.setText("# Nodes");
 
+        jnodes.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
+
         jLabel2.setText("Maximum Capacity");
 
+        jcapacity.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
+
         jLabel3.setText("# Instances (used only for Test Environment)");
+
+        jinstances.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -72,10 +92,10 @@ public class PropertiesWindow extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jButton1)
-                    .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jinstances, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField2, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(jnodes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                        .addComponent(jcapacity, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -84,15 +104,15 @@ public class PropertiesWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jnodes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jcapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jinstances, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -103,6 +123,13 @@ public class PropertiesWindow extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        int nodes = Integer.parseInt(jnodes.getText().trim());
+        int capacity = Integer.parseInt(jcapacity.getText().trim());
+        int instances = (Integer.parseInt(jinstances.getText().trim()));
+        
+        props.setNodes(nodes);
+        props.setMax_capacity(capacity);
+        props.setInstances(instances);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -143,11 +170,11 @@ public class PropertiesWindow extends javax.swing.JFrame {
     MaskFormatter formatter;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
-    private javax.swing.JFormattedTextField jFormattedTextField3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JFormattedTextField jcapacity;
+    private javax.swing.JFormattedTextField jinstances;
+    private javax.swing.JFormattedTextField jnodes;
     // End of variables declaration//GEN-END:variables
 }

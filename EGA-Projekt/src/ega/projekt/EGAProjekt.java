@@ -5,6 +5,7 @@
  */
 package ega.projekt;
 
+import ega.project.graph.Properties;
 import ega.projekt.gui.GraphWindow;
 import ega.projekt.gui.PropertiesWindow;
 
@@ -19,9 +20,10 @@ public class EGAProjekt {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Properties graph_prop = new Properties();
         GraphWindow gwin = new GraphWindow();
         gwin.setVisible(true);
-        PropertiesWindow pwin= new PropertiesWindow();
+        PropertiesWindow pwin= new PropertiesWindow(graph_prop);
         pwin.setVisible(true);
     }
     
