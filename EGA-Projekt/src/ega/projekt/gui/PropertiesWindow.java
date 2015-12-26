@@ -7,7 +7,7 @@ package ega.projekt.gui;
 
 import ega.project.graph.Properties;
 import javax.swing.text.MaskFormatter;
-import java.lang.System.*;
+
 /**
  *
  * @author Mike Demele
