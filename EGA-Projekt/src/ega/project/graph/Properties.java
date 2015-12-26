@@ -10,9 +10,9 @@ package ega.project.graph;
  * @author Can
  */
 public class Properties {
-    private int nodes;
-    private int max_capacity;
-    private int instances;
+    private static int nodes;
+    private static int max_capacity;
+    private static int instances;
 
     public Properties() {
         this.nodes = 0;
@@ -20,27 +20,27 @@ public class Properties {
         this.instances = 0;
     }
 
-    public void setNodes(int nodes) {
-        this.nodes = nodes;
+    public static void setNodes(int new_nodes) {
+        nodes = new_nodes;
     }
 
-    public void setMax_capacity(int max_capacity) {
-        this.max_capacity = max_capacity;
+    public static void setMax_capacity(int new_max_capacity) {
+        max_capacity = new_max_capacity;
     }
 
-    public void setInstances(int instances) {
-        this.instances = instances;
+    public static void setInstances(int new_instances) {
+        instances = new_instances;
     }
 
-    public int getNodes() {
+    public static int getNodes() {
         return nodes;
     }
 
-    public int getMax_capacity() {
+    public static int getMax_capacity() {
         return max_capacity;
     }
 
-    public int getInstances() {
+    public static int getInstances() {
         return instances;
     }
     

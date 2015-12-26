@@ -127,9 +127,9 @@ public class PropertiesWindow extends javax.swing.JFrame {
         int capacity = Integer.parseInt(jcapacity.getText().trim());
         int instances = (Integer.parseInt(jinstances.getText().trim()));
         
-        props.setNodes(nodes);
-        props.setMax_capacity(capacity);
-        props.setInstances(instances);
+        Properties.setNodes(nodes);
+        Properties.setMax_capacity(capacity);
+        Properties.setInstances(instances);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
