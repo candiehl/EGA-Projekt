@@ -16,6 +16,22 @@ public class Graph {
     private ArrayList<Node> nodes;
     private ArrayList<Edge> edges;
     
+    public ArrayList<Node> getNodes(){
+        return this.nodes;
+    }
+    
+    public Node getNode(int num){
+        return this.nodes.get(num);
+    }
+    
+    public ArrayList<Edge> getEdges(){
+        return this.edges;
+    }
+    
+    public Edge getEdge(int num){
+        return this.edges.get(num);
+    }
+    
     public Graph(int numNodes, int maxCapacity){
         
         this.nodes.ensureCapacity(numNodes);
@@ -25,7 +41,7 @@ public class Graph {
             x=rand.nextInt(maxCapacity);
             y=rand.nextInt(maxCapacity);
             for(int j=0;j<i;j++){
-                while(this.nodes.get(j).getX()==x && this.nodes.get(j).getY()==y){
+                while(this.getNode(j).getX()==x && this.getNode(j).getY()==y){
                     x=rand.nextInt(maxCapacity);
                     y=rand.nextInt(maxCapacity);
                 }
@@ -39,8 +55,8 @@ public class Graph {
                     boolean isTriangle = true;
                     for (int a = 0; a < numNodes; a++) {
                         if (a == i || a == j || a == k) continue;
-                        if (this.nodes.get(a).inside(this.nodes.get(i),
-                                this.nodes.get(j), this.nodes.get(k))) {
+                        if (this.getNode(a).inside(this.getNode(i),
+                                this.getNode(j), this.getNode(k))) {
                            isTriangle = false;
                            break;
                         }
@@ -49,19 +65,19 @@ public class Graph {
                         Random rand=new Random();
                         
                         //new triangle so add forward and backwards edges
-                        this.nodes.get(i).addEdge(this.nodes.get(j),
+                        this.getNode(i).addEdge(this.getNode(j),
                                 rand.nextInt(maxCapacity));
-                        this.nodes.get(j).addEdge(this.nodes.get(i),
-                                rand.nextInt(maxCapacity));
-                        
-                        this.nodes.get(i).addEdge(this.nodes.get(k),
-                                rand.nextInt(maxCapacity));
-                        this.nodes.get(k).addEdge(this.nodes.get(i),
+                        this.getNode(j).addEdge(this.getNode(i),
                                 rand.nextInt(maxCapacity));
                         
-                        this.nodes.get(j).addEdge(this.nodes.get(k),
+                        this.getNode(i).addEdge(this.getNode(k),
                                 rand.nextInt(maxCapacity));
-                        this.nodes.get(k).addEdge(this.nodes.get(j),
+                        this.getNode(k).addEdge(this.getNode(i),
+                                rand.nextInt(maxCapacity));
+                        
+                        this.getNode(j).addEdge(this.getNode(k),
+                                rand.nextInt(maxCapacity));
+                        this.getNode(k).addEdge(this.getNode(j),
                                 rand.nextInt(maxCapacity));
                     }
                 }
