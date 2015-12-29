@@ -8,13 +8,11 @@ package ega.projekt;
 import ega.project.graph.Properties;
 import ega.projekt.gui.GraphWindow;
 import ega.projekt.gui.PropertiesWindow;
-
 /**
  *
  * @author diehl
  */
 public class EGAProjekt {
-
     /**
      * @param args the command line arguments
      */

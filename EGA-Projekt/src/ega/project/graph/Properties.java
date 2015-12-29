@@ -4,15 +4,22 @@
  * and open the template in the editor.
  */
 package ega.project.graph;
-
 /**
  *
  * @author Can
  */
+
+enum Algorithm{
+    FORD_FULK, ED_KARP, DINIC, GOLD_TAR
+};
 public class Properties {
+    
+    
     private static int nodes;
     private static int max_capacity;
     private static int instances;
+    private static Algorithm algorithm;
+    
 
     public Properties() {
         this.nodes = 0;
@@ -44,4 +51,24 @@ public class Properties {
         return instances;
     }
     
+    public static void setAlgorithm(String new_algorithm) {
+        switch (new_algorithm) {
+            case "Ford-Fulkerson":
+                algorithm = Algorithm.FORD_FULK;
+                break;
+            case "Edmonds-Karp":
+                algorithm = Algorithm.ED_KARP;
+                break;
+            case "Dinic":
+                algorithm = Algorithm.DINIC;
+                break;
+            case "Goldberg-Tarjan":
+                algorithm = Algorithm.GOLD_TAR;
+                break;
+        }        
+    }
+    
+    public static Algorithm getAlgorithm() {
+        return algorithm;
+    }
 }

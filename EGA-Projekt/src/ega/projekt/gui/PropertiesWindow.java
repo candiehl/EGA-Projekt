@@ -57,6 +57,8 @@ public class PropertiesWindow extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jinstances = new javax.swing.JFormattedTextField(formatter);
         jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jalgorithm = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Graph Properties");
@@ -81,6 +83,15 @@ public class PropertiesWindow extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("Algorithm");
+
+        jalgorithm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ford-Fulkerson", "Edmonds-Karp", "Dinic", "Goldberg-Tarjan" }));
+        jalgorithm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jalgorithmActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,14 +99,17 @@ public class PropertiesWindow extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jButton1)
-                    .addComponent(jinstances, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jnodes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                        .addComponent(jcapacity, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addComponent(jinstances, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jnodes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                            .addComponent(jcapacity, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jalgorithm, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -113,9 +127,13 @@ public class PropertiesWindow extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jinstances, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jalgorithm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -126,11 +144,17 @@ public class PropertiesWindow extends javax.swing.JFrame {
         int nodes = Integer.parseInt(jnodes.getText().trim());
         int capacity = Integer.parseInt(jcapacity.getText().trim());
         int instances = (Integer.parseInt(jinstances.getText().trim()));
+        String algorithm = jalgorithm.getSelectedItem().toString();
         
         Properties.setNodes(nodes);
         Properties.setMax_capacity(capacity);
         Properties.setInstances(instances);
+        Properties.setAlgorithm(algorithm);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jalgorithmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jalgorithmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jalgorithmActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,6 +197,8 @@ public class PropertiesWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JComboBox<String> jalgorithm;
     private javax.swing.JFormattedTextField jcapacity;
     private javax.swing.JFormattedTextField jinstances;
     private javax.swing.JFormattedTextField jnodes;
