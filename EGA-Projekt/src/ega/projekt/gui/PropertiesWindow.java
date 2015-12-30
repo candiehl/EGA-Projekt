@@ -14,6 +14,7 @@ import javax.swing.text.MaskFormatter;
  */
 public class PropertiesWindow extends javax.swing.JFrame {
     Properties props;
+    GraphWindow gwin = new GraphWindow();
 
     /**
      * Creates new form PropertiesWindow
@@ -59,6 +60,7 @@ public class PropertiesWindow extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jalgorithm = new javax.swing.JComboBox<>();
+        jTestEnv = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Graph Properties");
@@ -92,6 +94,13 @@ public class PropertiesWindow extends javax.swing.JFrame {
             }
         });
 
+        jTestEnv.setText("Test Environment");
+        jTestEnv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTestEnvActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,11 +112,13 @@ public class PropertiesWindow extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addComponent(jLabel2)
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButton1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTestEnv))
                         .addComponent(jinstances, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jnodes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                            .addComponent(jcapacity, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(jnodes)
+                        .addComponent(jcapacity)
                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jalgorithm, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -132,7 +143,9 @@ public class PropertiesWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jalgorithm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jTestEnv))
                 .addContainerGap())
         );
 
@@ -150,11 +163,22 @@ public class PropertiesWindow extends javax.swing.JFrame {
         Properties.setMax_capacity(capacity);
         Properties.setInstances(instances);
         Properties.setAlgorithm(algorithm);
+        
+        gwin.dispose();
+        gwin = new GraphWindow();
+        gwin.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jalgorithmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jalgorithmActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jalgorithmActionPerformed
+
+    private void jTestEnvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTestEnvActionPerformed
+        // TODO add your handling code here:
+        TestEnvironment testenv = new TestEnvironment();
+        testenv.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jTestEnvActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,6 +222,7 @@ public class PropertiesWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton jTestEnv;
     private javax.swing.JComboBox<String> jalgorithm;
     private javax.swing.JFormattedTextField jcapacity;
     private javax.swing.JFormattedTextField jinstances;

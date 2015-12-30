@@ -32,12 +32,14 @@
                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jButton1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jinstances" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jnodes" alignment="0" pref="110" max="32767" attributes="0"/>
-                          <Component id="jcapacity" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jTestEnv" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="jinstances" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
+                      <Component id="jnodes" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jcapacity" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jalgorithm" min="-2" pref="109" max="-2" attributes="0"/>
@@ -66,7 +68,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jalgorithm" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="14" max="32767" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTestEnv" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -142,6 +147,14 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="jTestEnv">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Test Environment"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTestEnvActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

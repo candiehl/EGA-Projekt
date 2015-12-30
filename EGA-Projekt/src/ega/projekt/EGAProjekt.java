@@ -18,8 +18,6 @@ public class EGAProjekt {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        GraphWindow gwin = new GraphWindow();
-        gwin.setVisible(true);
         PropertiesWindow pwin= new PropertiesWindow();
         pwin.setVisible(true);
     }
