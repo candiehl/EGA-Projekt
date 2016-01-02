@@ -13,18 +13,29 @@ import java.util.ArrayList;
  */
 public class Node {
     private final int xCoord,yCoord;
-    private ArrayList<Edge> edges;
-    
-    public Node(int x, int y, ArrayList<Edge> edges){
-        this.edges=edges;
+    private final int id;
+    private static int idCounter=0;
+    private ArrayList<Edge> inEdges;
+    private ArrayList<Edge> outEdges;
+        
+    public Node(int x, int y, ArrayList<Edge> inEdges, ArrayList<Edge> outEdges){
+        this.id=fetchID();
+        this.inEdges=inEdges;
+        this.outEdges=outEdges;
         this.xCoord=x;
         this.yCoord=y;
     }
     
     public Node(int x, int y){
-        this.edges.clear();
+        this.id=fetchID();
+        this.inEdges.clear();
+        this.outEdges.clear();
         this.xCoord=x;
         this.yCoord=y;
+    }
+    
+    public int getID(){
+        return this.id;
     }
     
     public int getX(){
@@ -35,12 +46,44 @@ public class Node {
         return this.yCoord;
     }
     
-    public void addEdge(Node to, int capacity){
-        this.edges.add(new Edge(this,to, capacity));
+    public void addOutEdge(Node to, int capacity){
+        this.outEdges.add(new Edge(this,to, capacity));
     }
     
-    public ArrayList<Edge> getEdges(){
-        return this.edges;
+    public void addInEdge(Node from, int capacity){
+        this.outEdges.add(new Edge(from,this, capacity));
+    }
+    
+    public void addEdge(Node to, int capacity){
+        this.addOutEdge(to,capacity);
+        this.addInEdge(to, capacity);
+        to.addInEdge(this, capacity);
+        to.addOutEdge(this, capacity);
+    }
+    
+    public ArrayList<Edge> getAllEdges(){
+        ArrayList<Edge> edges=new ArrayList<>();
+        int size=this.inEdges.size()+this.outEdges.size();
+        edges.ensureCapacity(size);
+        edges.addAll(inEdges);
+        edges.addAll(outEdges);
+        return edges;
+    }
+    
+    public ArrayList<Edge> getInEdges(){
+        return this.inEdges;
+    }
+    
+    public ArrayList<Edge> getOutEdges(){
+        return this.outEdges;
+    }
+    
+    public Edge getInEdge(int num){
+        return this.inEdges.get(num);
+    }
+    
+    public Edge getOutEdges(int num){
+        return this.outEdges.get(num);
     }
     
     public boolean inside(Node a,Node b,Node c){
@@ -66,5 +109,10 @@ public class Node {
         double distance = (float)Math.sqrt(xd*xd + yd*yd);
         
         return distance >radius;
+    }
+    
+    private int fetchID(){
+        idCounter++;
+        return idCounter;
     }
 }

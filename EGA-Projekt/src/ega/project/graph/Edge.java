@@ -5,17 +5,18 @@
  */
 package ega.project.graph;
 
-import java.util.Random;
-
 /**
  *
  * @author Mike Demele
  */
 public class Edge {
-    private Node from, to;
+    private static int idCounter=0;
+    private final int id;
+    private final Node from, to;
     private int capacity;
     
     public Edge(Node from, Node to, int capacity){
+        this.id=fetchID();
         this.from=from;
         this.to=to;
         this.capacity=capacity;
@@ -31,5 +32,14 @@ public class Edge {
     
     public int getCapacity(){
         return capacity;
+    }
+    
+    public void setCapacity(int newCapacity){
+        this.capacity=newCapacity;
+    }
+    
+    private int fetchID(){
+        idCounter++;
+        return idCounter;
     }
 }
