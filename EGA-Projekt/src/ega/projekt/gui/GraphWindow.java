@@ -35,7 +35,7 @@ public class GraphWindow extends javax.swing.JFrame {
         AutoButton = new javax.swing.JToggleButton();
         Delay = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Effiziente Graphenalgorithmen");
         setAlwaysOnTop(true);
 

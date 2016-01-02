@@ -5,11 +5,19 @@
  */
 package ega.projekt.gui;
 
+import ega.project.utility.TupleReader;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Can
  */
 public class TestEnvironment extends javax.swing.JFrame {
+    
+    TupleReader reader;
 
     /**
      * Creates new form TestEnvironment
@@ -28,22 +36,37 @@ public class TestEnvironment extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jCustomTuples = new javax.swing.JTextArea();
         jtupel = new javax.swing.JButton();
         jsmall = new javax.swing.JButton();
         jbig = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jCustomTuples.setColumns(20);
+        jCustomTuples.setRows(5);
+        jScrollPane1.setViewportView(jCustomTuples);
 
         jtupel.setText("Submit Tupels");
+        jtupel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtupelActionPerformed(evt);
+            }
+        });
 
         jsmall.setText("Small Test");
+        jsmall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jsmallActionPerformed(evt);
+            }
+        });
 
         jbig.setText("Big Test");
+        jbig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbigActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,6 +99,29 @@ public class TestEnvironment extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jsmallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jsmallActionPerformed
+        runTestEnvironment("small.csv");
+    }//GEN-LAST:event_jsmallActionPerformed
+
+    private void jbigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbigActionPerformed
+        runTestEnvironment("big.csv");
+    }//GEN-LAST:event_jbigActionPerformed
+
+    private void jtupelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtupelActionPerformed
+        String text = jCustomTuples.getText();
+        if (text.length()!=0){
+            text = text.replace(" ", ",");
+            try {
+                PrintWriter out = new PrintWriter("tests/custom.csv");
+                out.println(text);
+                out.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(TestEnvironment.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        runTestEnvironment("custom.csv");
+    }//GEN-LAST:event_jtupelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,10 +157,23 @@ public class TestEnvironment extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void runTestEnvironment(String filename){
+        try {
+            reader = new TupleReader("tests/"+filename);
+            while(reader.hasNextTuple()){
+                int[] tuple = reader.getTuple();
+                //TODO: Instead of print the algorithms need to be called here
+                System.out.println(tuple[0]+" "+tuple[1]+" "+tuple[2]);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TestEnvironment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea jCustomTuples;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton jbig;
     private javax.swing.JButton jsmall;
     private javax.swing.JButton jtupel;

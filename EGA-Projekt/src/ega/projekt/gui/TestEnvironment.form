@@ -63,7 +63,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="jTextArea1">
+        <Component class="javax.swing.JTextArea" name="jCustomTuples">
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
@@ -75,16 +75,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Submit Tupels"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtupelActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jsmall">
       <Properties>
         <Property name="text" type="java.lang.String" value="Small Test"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jsmallActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbig">
       <Properties>
         <Property name="text" type="java.lang.String" value="Big Test"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbigActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -62,20 +62,28 @@ public class PropertiesWindow extends javax.swing.JFrame {
         jalgorithm = new javax.swing.JComboBox<>();
         jTestEnv = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Graph Properties");
         setAlwaysOnTop(true);
 
         jLabel1.setText("# Nodes");
 
+        jnodes.setText("100");
         jnodes.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
 
         jLabel2.setText("Maximum Capacity");
 
+        jcapacity.setText("100");
         jcapacity.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
+        jcapacity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcapacityActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("# Instances (used only for Test Environment)");
 
+        jinstances.setText("1");
         jinstances.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
 
         jButton1.setText("OK");
@@ -179,6 +187,10 @@ public class PropertiesWindow extends javax.swing.JFrame {
         testenv.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jTestEnvActionPerformed
+
+    private void jcapacityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcapacityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcapacityActionPerformed
 
     /**
      * @param args the command line arguments
