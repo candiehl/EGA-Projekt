@@ -5,7 +5,15 @@
  */
 package ega.projekt.gui;
 
-/**
+import ega.projekt.graph.Node;
+import ega.projekt.graph.Edge;
+import edu.uci.ics.jung.graph.*;
+import edu.uci.ics.jung.visualization.*;
+import edu.uci.ics.jung.algorithms.layout.*;
+import edu.uci.ics.jung.io.*;
+
+
+        /**
  *
  * @author diehl
  */
@@ -142,6 +150,16 @@ public class GraphWindow extends javax.swing.JFrame {
                 new GraphWindow().setVisible(true);
             }
         });
+    }
+    
+    private void drawGraphPanel(ega.projekt.graph.Graph graph){
+        edu.uci.ics.jung.graph.Graph<Node, Edge> drawGraph = new DirectedSparseMultigraph<>();
+        for(Node node : graph.getNodes()){
+            drawGraph.addVertex(node);
+        }
+        for(Edge edge : graph.getEdges()){
+            drawGraph.addEdge(edge, edge.getFromNode(), edge.getToNode());
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

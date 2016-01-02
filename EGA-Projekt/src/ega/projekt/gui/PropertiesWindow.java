@@ -5,7 +5,7 @@
  */
 package ega.projekt.gui;
 
-import ega.project.graph.Properties;
+import ega.projekt.graph.Properties;
 import javax.swing.text.MaskFormatter;
 
 /**
