@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ega.project.graph;
+package ega.projekt.graph;
 
 /**
  *
@@ -41,5 +41,9 @@ public class Edge {
     private int fetchID(){
         idCounter++;
         return idCounter;
+    }
+    
+    public int getID(){
+        return this.id;
     }
 }

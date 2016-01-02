@@ -5,7 +5,7 @@
  */
 package ega.projekt;
 
-import ega.project.graph.Properties;
+import ega.projekt.graph.Properties;
 import ega.projekt.gui.GraphWindow;
 import ega.projekt.gui.PropertiesWindow;
 /**
