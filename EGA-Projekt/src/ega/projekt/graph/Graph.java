@@ -15,6 +15,8 @@ import java.util.Random;
 public class Graph {    
     private ArrayList<Node> nodes;
     private ArrayList<Edge> edges;
+    private static final int MAX_WIDTH=300;
+    private static final int MAX_HEIGHT=200;
     
     public ArrayList<Node> getNodes(){
         return this.nodes;
@@ -33,17 +35,19 @@ public class Graph {
     }
     
     public Graph(int numNodes, int maxCapacity){
-        
-        this.nodes.ensureCapacity(numNodes);
+        Random rand=new Random();   
+        this.nodes=new ArrayList<>();
+        nodes.ensureCapacity(numNodes);
+        this.edges=new ArrayList<>();
         for(int i=0;i<numNodes;i++){
-            Random rand=new Random();
+            
             int x,y;
-            x=rand.nextInt(maxCapacity);
-            y=rand.nextInt(maxCapacity);
+            x=rand.nextInt(MAX_WIDTH);
+            y=rand.nextInt(MAX_HEIGHT);
             for(int j=0;j<i;j++){
                 while(this.nodes.get(j).getX()==x && this.nodes.get(j).getY()==y){
-                    x=rand.nextInt(maxCapacity);
-                    y=rand.nextInt(maxCapacity);
+                    x=rand.nextInt(MAX_WIDTH);
+                    y=rand.nextInt(MAX_HEIGHT);
                 }
             }
             this.nodes.add(i, new Node(x,y));
@@ -62,15 +66,19 @@ public class Graph {
                         }
                     }
                     if (isTriangle) {
-                        Random rand=new Random();
-                        
-                        //new triangle so add edges
+                        //new triangle so add edges, if not already present
+                        if(!this.hasEdge(i,j)){
                         this.nodes.get(i).addEdge(this.nodes.get(j),
-                                rand.nextInt(maxCapacity));                      
-                        this.nodes.get(i).addEdge(this.nodes.get(k),
                                 rand.nextInt(maxCapacity));
-                        this.nodes.get(j).addEdge(this.nodes.get(k),
+                        }
+                        if(!this.hasEdge(i,k)){
+                            this.nodes.get(i).addEdge(this.nodes.get(k),
                                 rand.nextInt(maxCapacity));
+                        }
+                        if(!this.hasEdge(j,k)){
+                            this.nodes.get(j).addEdge(this.nodes.get(k),
+                                rand.nextInt(maxCapacity));
+                        }
                     }
                 }
             }
@@ -80,5 +88,18 @@ public class Graph {
         }
     }
     
+    public boolean hasEdge(int from,int to){
+        for(Edge curEdge : this.edges){
+            if(curEdge.getFromNode().equals(this.nodes.get(from))){
+                if(curEdge.getToNode().equals(this.nodes.get(to)))
+                return true;
+            }
+        }
+        return false;
+    }
     
+    public String toString(){
+        String result=new String();
+        return result;
+    }
 }

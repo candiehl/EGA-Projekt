@@ -20,16 +20,16 @@ public class Node {
         
     public Node(int x, int y, ArrayList<Edge> inEdges, ArrayList<Edge> outEdges){
         this.id=fetchID();
-        this.inEdges=inEdges;
-        this.outEdges=outEdges;
+        this.inEdges=new ArrayList<>();
+        this.outEdges=new ArrayList<>();
         this.xCoord=x;
         this.yCoord=y;
     }
     
     public Node(int x, int y){
         this.id=fetchID();
-        this.inEdges.clear();
-        this.outEdges.clear();
+        this.inEdges=new ArrayList<>();
+        this.outEdges=new ArrayList<>();
         this.xCoord=x;
         this.yCoord=y;
     }
@@ -51,7 +51,7 @@ public class Node {
     }
     
     public void addInEdge(Node from, int capacity){
-        this.outEdges.add(new Edge(from,this, capacity));
+        this.inEdges.add(new Edge(from,this, capacity));
     }
     
     public void addEdge(Node to, int capacity){
@@ -114,5 +114,11 @@ public class Node {
     private int fetchID(){
         idCounter++;
         return idCounter;
+    }
+    
+    
+    public String toString(){
+        String result=Integer.toString(this.id);
+        return result;
     }
 }

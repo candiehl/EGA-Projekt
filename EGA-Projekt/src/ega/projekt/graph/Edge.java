@@ -14,6 +14,7 @@ public class Edge {
     private final int id;
     private final Node from, to;
     private int capacity;
+    private int currentFlow;
     
     public Edge(Node from, Node to, int capacity){
         this.id=fetchID();
@@ -45,5 +46,21 @@ public class Edge {
     
     public int getID(){
         return this.id;
+    }
+    
+    public String toString(){
+        String result=Integer.toString(this.capacity);
+        return result;
+    }
+    public void setFlow(int f){
+        this.currentFlow=f;
+    }
+    
+    public int getCurrentFlow(){
+        return currentFlow;
+    }
+    
+    public String getFlowString(){
+        return Integer.toString(this.currentFlow);
     }
 }
