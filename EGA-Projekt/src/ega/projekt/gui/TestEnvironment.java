@@ -5,7 +5,11 @@
  */
 package ega.projekt.gui;
 
+import ega.project.utility.Misc;
+import ega.project.utility.Protocoller;
 import ega.project.utility.TupleReader;
+import ega.projekt.graph.Graph;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -161,10 +165,19 @@ public class TestEnvironment extends javax.swing.JFrame {
     private void runTestEnvironment(String filename){
         try {
             reader = new TupleReader("tests/"+filename);
+            int max_expirement = Misc.createExperimentFolder("protocols");
             while(reader.hasNextTuple()){
+                Misc.createTupleFolder("protocols/"+max_expirement);
                 int[] tuple = reader.getTuple();
-                //TODO: Instead of print the algorithms need to be called here
-                System.out.println(tuple[0]+" "+tuple[1]+" "+tuple[2]);
+                for(int i=0; i < tuple[2] ;i++){
+                    //DEBUG, normally would have created in Algorithm
+                    Protocoller protocol = new Protocoller(i,"DINIC");
+                    Graph graph = new Graph(tuple[0],tuple[1]);
+                    for(int j=0; j < 10; j++){
+                        protocol.saveIteration(graph.getEdges());
+                    }
+                    //Run algorithms for TestEnvironment here
+                }
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TestEnvironment.class.getName()).log(Level.SEVERE, null, ex);
