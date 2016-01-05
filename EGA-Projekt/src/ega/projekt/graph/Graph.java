@@ -40,17 +40,21 @@ public class Graph {
         nodes.ensureCapacity(numNodes);
         this.edges=new ArrayList<>();
         for(int i=0;i<numNodes;i++){
-            
             int x,y;
             x=rand.nextInt(MAX_WIDTH);
             y=rand.nextInt(MAX_HEIGHT);
+            //System.err.println(x+" , "+y);
+            //avoid that nodes are to close
             for(int j=0;j<i;j++){
-                while(this.nodes.get(j).getX()==x && this.nodes.get(j).getY()==y){
+                final int DRAW_OFFSET=100; 
+                while((this.nodes.get(j).getX()>(x-DRAW_OFFSET) && this.nodes.get(j).getX()<(x+DRAW_OFFSET)) &&
+                        (this.nodes.get(j).getY()>(y-DRAW_OFFSET) && this.nodes.get(j).getY()<(y+DRAW_OFFSET))){
                     x=rand.nextInt(MAX_WIDTH);
                     y=rand.nextInt(MAX_HEIGHT);
+                    //System.err.println("redone: "+x+" , "+y);
                 }
             }
-            this.nodes.add(i, new Node(x,y));
+            this.nodes.add(new Node(x,y));
         }
         //get edges via Delauney Triangulation
         for (int i = 0; i < numNodes; i++) {
@@ -67,6 +71,7 @@ public class Graph {
                     }
                     if (isTriangle) {
                         //new triangle so add edges, if not already present
+                        /*
                         if(!this.hasEdge(i,j)){
                         this.nodes.get(i).addEdge(this.nodes.get(j),
                                 rand.nextInt(maxCapacity));
@@ -79,19 +84,41 @@ public class Graph {
                             this.nodes.get(j).addEdge(this.nodes.get(k),
                                 rand.nextInt(maxCapacity));
                         }
+                        */
+                        if(!this.hasEdge(i,j)){
+                            this.edges.add(new Edge(this.nodes.get(i),this.nodes.get(j),rand.nextInt(maxCapacity)));
+                            this.nodes.get(i).addEdge(this.edges.get(this.edges.size()-1));
+                            this.nodes.get(j).addEdge(this.edges.get(this.edges.size()-1));
+                            this.edges.add(new Edge(this.nodes.get(j),this.nodes.get(i),rand.nextInt(maxCapacity)));
+                            this.nodes.get(i).addEdge(this.edges.get(this.edges.size()-1));
+                            this.nodes.get(j).addEdge(this.edges.get(this.edges.size()-1));
+                        }
+                        if(!this.hasEdge(i,k)){
+                            this.edges.add(new Edge(this.nodes.get(i),this.nodes.get(k),rand.nextInt(maxCapacity)));
+                            this.nodes.get(i).addEdge(this.edges.get(this.edges.size()-1));
+                            this.nodes.get(k).addEdge(this.edges.get(this.edges.size()-1));
+                            this.edges.add(new Edge(this.nodes.get(k),this.nodes.get(i),rand.nextInt(maxCapacity)));
+                            this.nodes.get(i).addEdge(this.edges.get(this.edges.size()-1));
+                            this.nodes.get(k).addEdge(this.edges.get(this.edges.size()-1));
+                        }
+                        if(!this.hasEdge(j,k)){
+                            this.edges.add(new Edge(this.nodes.get(j),this.nodes.get(k),rand.nextInt(maxCapacity)));
+                            this.nodes.get(j).addEdge(this.edges.get(this.edges.size()-1));
+                            this.nodes.get(k).addEdge(this.edges.get(this.edges.size()-1));
+                            this.edges.add(new Edge(this.nodes.get(k),this.nodes.get(j),rand.nextInt(maxCapacity)));
+                            this.nodes.get(j).addEdge(this.edges.get(this.edges.size()-1));
+                            this.nodes.get(k).addEdge(this.edges.get(this.edges.size()-1));
+                        }
                     }
                 }
             }
-        }
-        for(int i=0;i<this.nodes.size();i++){
-            this.edges.addAll(nodes.get(i).getAllEdges());
         }
     }
     
     public boolean hasEdge(int from,int to){
         for(Edge curEdge : this.edges){
-            if(curEdge.getFromNode().equals(this.nodes.get(from))){
-                if(curEdge.getToNode().equals(this.nodes.get(to)))
+            if(curEdge.getFromNode().equals(this.nodes.get(from)) &&
+                    curEdge.getToNode().equals(this.nodes.get(to))){
                 return true;
             }
         }

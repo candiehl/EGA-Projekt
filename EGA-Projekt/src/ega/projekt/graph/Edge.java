@@ -15,12 +15,14 @@ public class Edge {
     private final Node from, to;
     private int capacity;
     private int currentFlow;
+    private boolean modified;
     
     public Edge(Node from, Node to, int capacity){
         this.id=fetchID();
         this.from=from;
         this.to=to;
         this.capacity=capacity;
+        this.modified=false;
     }
 
     public Node getFromNode(){
@@ -62,5 +64,9 @@ public class Edge {
     
     public String getFlowString(){
         return Integer.toString(this.currentFlow);
+    }
+    
+    public boolean isModified(){
+        return this.modified; 
     }
 }

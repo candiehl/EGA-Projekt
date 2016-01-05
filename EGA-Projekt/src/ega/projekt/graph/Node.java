@@ -54,6 +54,14 @@ public class Node {
         this.inEdges.add(new Edge(from,this, capacity));
     }
     
+    public void addEdge(Edge e){
+        if(e.getFromNode().equals(this)){
+            this.addOutEdge(e.getToNode(), e.getCapacity());
+        }else if(e.getToNode().equals(this)){
+            this.addInEdge(e.getFromNode(), e.getCapacity());
+        }
+    }
+    
     public void addEdge(Node to, int capacity){
         this.addOutEdge(to,capacity);
         this.addInEdge(to, capacity);
