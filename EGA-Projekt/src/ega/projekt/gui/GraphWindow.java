@@ -11,6 +11,7 @@ import edu.uci.ics.jung.graph.*;
 import edu.uci.ics.jung.visualization.*;
 import edu.uci.ics.jung.algorithms.layout.*;
 import edu.uci.ics.jung.io.*;
+import ega.projekt.graph.Properties;
 
 
         /**
@@ -20,11 +21,12 @@ import edu.uci.ics.jung.io.*;
 public class GraphWindow extends javax.swing.JFrame {
     
     private boolean next_enabled = true;
-    
+    private ega.projekt.graph.Graph graph;
     /**
      * Creates new form GraphWindow
      */
     public GraphWindow() {
+        graph = new ega.projekt.graph.Graph(Properties.getNodes(),Properties.getMax_capacity());
         initComponents();
         NextButton.setEnabled(next_enabled);
     }
