@@ -12,33 +12,12 @@ import ega.projekt.graph.Graph;
  *
  * @author Can
  */
-public class GraphAlgorithm {
+public interface GraphAlgorithm {
+    Graph graph = null;
+    Protocoller protocoller = null;
     
-    private Graph graph;
-    private Protocoller protocoller;
-
-    public Graph getGraph() {
-        return graph;
-    }
-    
-    public GraphAlgorithm(Graph init_graph) {
-        graph = init_graph;
-    }
-    
-    public void initialize(){
-    }
-    
-    public boolean iteration(){
-        if(!break_condition()){
-            //Do Something
-            return false;
-        }
-        //Else return true
-        return true;
-    }
-    
-    private boolean break_condition(){
-        //Checks if Algorithm terminates
-        return false;
-    }
+    Graph getGraph();
+    void initialize();
+    boolean iteration();
+    boolean break_condition();
 }

@@ -11,27 +11,26 @@ import ega.projekt.graph.Graph;
  *
  * @author Can
  */
-public class Dinic extends GraphAlgorithm{
-    
-    public Dinic(Graph init_graph) {
-        super(init_graph);
+public class Dinic implements GraphAlgorithm{
+
+    @Override
+    public Graph getGraph() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public void initialize(){
+
+    @Override
+    public void initialize() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public boolean iteration(){
-        if(!break_condition()){
-            //Do Something
-            return false;
-        }
-        //Else return true
-        return true;
+
+    @Override
+    public boolean iteration() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    private boolean break_condition(){
-        //Checks if Algorithm terminates
-        return false;
+
+    @Override
+    public boolean break_condition() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
