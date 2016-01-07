@@ -23,7 +23,7 @@ import javax.swing.JFrame;
 import org.apache.commons.collections15.Transformer;
 
 import ega.projekt.graph.*; 
-import java.awt.geom.Point2D.Float;
+import java.awt.geom.Point2D.Double;
 
 /**
  *
@@ -63,13 +63,13 @@ public class DrawGraph {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ega.projekt.graph.Graph dataGraph=new ega.projekt.graph.Graph(5,100);
+        ega.projekt.graph.Graph dataGraph=new ega.projekt.graph.Graph(5,100,295,295);
         if(dataGraph.getEdges().isEmpty()) System.out.println("Error initializing graph");
         DrawGraph graphView = new DrawGraph(dataGraph); // This builds the graph
         // Layout<V, E>, VisualizationComponent<V,E>
         Layout<Node, Edge> layout = new StaticLayout(graphView.drawGraph);
         for(Node n:graphView.drawGraph.getVertices()){
-            layout.setLocation(n,new java.awt.geom.Point2D.Float(n.getX(),n.getY()));
+            layout.setLocation(n,new java.awt.geom.Point2D.Double(n.getX(),n.getY()));
         }
         layout.setSize(new Dimension(300,300));
         BasicVisualizationServer<Node,Edge> vv = new BasicVisualizationServer<>(layout);
@@ -87,7 +87,7 @@ public class DrawGraph {
              BasicStroke.JOIN_MITER);
         Transformer<Edge, Stroke> edgeStrokeTransformer = new Transformer<Edge, Stroke>() {
             public Stroke transform(Edge e) {
-                if(e.isModified()){
+                if(e.isMarked()){
                     final Stroke modStroke = new BasicStroke(5.0f, BasicStroke.CAP_BUTT,
                     BasicStroke.JOIN_MITER);
                     return modStroke;
@@ -97,7 +97,7 @@ public class DrawGraph {
         };
     Transformer<Edge, Paint> edgePaint = new Transformer<Edge, Paint>() {
     public Paint transform(Edge e) {
-        if(e.isModified()){
+        if(e.isMarked()){
             return Color.RED;
         }
         return Color.BLACK;
@@ -126,25 +126,23 @@ public class DrawGraph {
         frame.setVisible(true);     
     }
     
-    public static BasicVisualizationServer<Node,Edge> generatePanel(ega.projekt.graph.Graph dataGraph){
+    public static BasicVisualizationServer<Node,Edge> generatePanel(ega.projekt.graph.Graph dataGraph, int panelWidth, int panelHeight){
         if(dataGraph.getEdges().isEmpty()) System.out.println("Error initializing graph");
         DrawGraph graphView = new DrawGraph(dataGraph); // This builds the graph
         // Layout<V, E>, VisualizationComponent<V,E>
         Layout<Node, Edge> layout = new StaticLayout(graphView.drawGraph);
         for(Node n:graphView.drawGraph.getVertices()){
-            layout.setLocation(n,new java.awt.geom.Point2D.Float(n.getX(),n.getY()));
+            layout.setLocation(n,new java.awt.geom.Point2D.Double(n.getX(),n.getY()));
         }
-        layout.setSize(new Dimension(300,300));
+        layout.setSize(new Dimension(panelWidth,panelHeight));
         BasicVisualizationServer<Node,Edge> vv = new BasicVisualizationServer<>(layout);
-        vv.setPreferredSize(new Dimension(350,350));       
+        vv.setPreferredSize(new Dimension(panelWidth,panelHeight));       
         // Setup up a new vertex to paint transformer...
         Transformer<Node,Paint> vertexPaint = new Transformer<Node,Paint>() {
             public Paint transform(Node i) {
                 return Color.GREEN;
             }
         };  
-        // Set up a new stroke Transformer for the edges
-        //float dash[] = {10.0f};
         final Stroke edgeStroke = new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
              BasicStroke.JOIN_MITER);
         Transformer<Edge, Stroke> edgeStrokeTransformer = new Transformer<Edge, Stroke>() {
@@ -165,8 +163,47 @@ public class DrawGraph {
                     return (Integer.toString(n.getID()));
                 }
             });
-        //vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
-        vv.getRenderer().getVertexLabelRenderer().setPosition(Renderer.VertexLabel.Position.CNTR);   
+        vv.getRenderer().getVertexLabelRenderer().setPosition(Renderer.VertexLabel.Position.CNTR);
+        
+        return vv;
+    }
+    
+    //Dummy function
+    public static BasicVisualizationServer<Node,Edge> generatePanel(int panelWidth, int panelHeight){
+        DrawGraph graphView = new DrawGraph();
+        Layout<Node, Edge> layout = new StaticLayout(graphView.drawGraph);
+        for(Node n:graphView.drawGraph.getVertices()){
+            layout.setLocation(n,new java.awt.geom.Point2D.Double(n.getX(),n.getY()));
+        }
+        layout.setSize(new Dimension(panelWidth,panelHeight));
+        BasicVisualizationServer<Node,Edge> vv = new BasicVisualizationServer<>(layout);
+        vv.setPreferredSize(new Dimension(panelWidth,panelHeight));       
+        Transformer<Node,Paint> vertexPaint = new Transformer<Node,Paint>() {
+            public Paint transform(Node i) {
+                return Color.GREEN;
+            }
+        };  
+        final Stroke edgeStroke = new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
+             BasicStroke.JOIN_MITER);
+        Transformer<Edge, Stroke> edgeStrokeTransformer = new Transformer<Edge, Stroke>() {
+            public Stroke transform(Edge e) {
+                return edgeStroke;
+            }
+        };
+        vv.getRenderContext().setVertexFillPaintTransformer(vertexPaint);
+        vv.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
+        vv.getRenderContext().setEdgeShapeTransformer(new EdgeShape.QuadCurve<Node,Edge>());
+        vv.getRenderContext().setEdgeLabelTransformer(new Transformer<Edge, String>() {
+                public String transform(Edge e) {
+                    return (e.getFlowString() + "/" + Integer.toString(e.getCapacity()));
+                }
+            });
+        vv.getRenderContext().setVertexLabelTransformer(new Transformer<Node, String>(){
+        public String transform(Node n) {
+                    return (Integer.toString(n.getID()));
+                }
+            });
+        vv.getRenderer().getVertexLabelRenderer().setPosition(Renderer.VertexLabel.Position.CNTR);
         return vv;
     }
             
