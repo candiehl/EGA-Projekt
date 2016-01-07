@@ -12,10 +12,16 @@ import ega.projekt.graph.Graph;
  * @author Can
  */
 public class FordFulkerson implements GraphAlgorithm{
+    
+    Graph graph;
+    
+    public FordFulkerson(Graph rnd_graph) {
+        graph = rnd_graph;
+    }
 
     @Override
     public Graph getGraph() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return graph;
     }
 
     @Override

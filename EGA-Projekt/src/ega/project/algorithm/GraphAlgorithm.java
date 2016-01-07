@@ -13,9 +13,6 @@ import ega.projekt.graph.Graph;
  * @author Can
  */
 public interface GraphAlgorithm {
-    Graph graph = null;
-    Protocoller protocoller = null;
-    
     Graph getGraph();
     void initialize();
     boolean iteration();
