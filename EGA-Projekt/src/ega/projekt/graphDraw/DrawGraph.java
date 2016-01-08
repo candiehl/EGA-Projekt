@@ -23,8 +23,6 @@ import javax.swing.JFrame;
 import org.apache.commons.collections15.Transformer;
 
 import ega.projekt.graph.*; 
-import java.awt.geom.Point2D.Double;
-
 /**
  *
  * @author Mike Demele
@@ -116,7 +114,6 @@ public class DrawGraph {
                     return (Integer.toString(n.getID()));
                 }
             });
-        //vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
         vv.getRenderer().getVertexLabelRenderer().setPosition(Renderer.VertexLabel.Position.CNTR);        
         
         JFrame frame = new JFrame("Simple Graph View 2");
@@ -128,16 +125,14 @@ public class DrawGraph {
     
     public static BasicVisualizationServer<Node,Edge> generatePanel(ega.projekt.graph.Graph dataGraph, int panelWidth, int panelHeight){
         if(dataGraph.getEdges().isEmpty()) System.out.println("Error initializing graph");
-        DrawGraph graphView = new DrawGraph(dataGraph); // This builds the graph
-        // Layout<V, E>, VisualizationComponent<V,E>
+        DrawGraph graphView = new DrawGraph(dataGraph);
         Layout<Node, Edge> layout = new StaticLayout(graphView.drawGraph);
         for(Node n:graphView.drawGraph.getVertices()){
             layout.setLocation(n,new java.awt.geom.Point2D.Double(n.getX(),n.getY()));
         }
         layout.setSize(new Dimension(panelWidth,panelHeight));
         BasicVisualizationServer<Node,Edge> vv = new BasicVisualizationServer<>(layout);
-        vv.setPreferredSize(new Dimension(panelWidth,panelHeight));       
-        // Setup up a new vertex to paint transformer...
+        vv.setPreferredSize(new Dimension(panelWidth,panelHeight));
         Transformer<Node,Paint> vertexPaint = new Transformer<Node,Paint>() {
             public Paint transform(Node i) {
                 return Color.GREEN;

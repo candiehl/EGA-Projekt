@@ -5,6 +5,8 @@
  */
 package ega.projekt.graph;
 
+import ega.projekt.graph.triangulation.Delaunay;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,8 +17,8 @@ import java.util.Random;
 public class Graph {    
     private ArrayList<Node> nodes;
     private ArrayList<Edge> edges;
-    private static final int MAX_WIDTH=300;
-    private static final int MAX_HEIGHT=200;
+    private static final int MAX_WIDTH=1000;
+    private static final int MAX_HEIGHT=1000;
     
     public ArrayList<Node> getNodes(){
         return this.nodes;
@@ -34,99 +36,47 @@ public class Graph {
         return this.edges.get(num);
     }
     
-    public Graph(int numNodes, int maxCapacity){
+    public Graph(int numNodes,int maxCapacity){
+        this(numNodes,maxCapacity,Graph.MAX_WIDTH,Graph.MAX_HEIGHT);
+    }
+    
+    public Graph(int numNodes, int maxCapacity, int maxWidth, int maxHeight){
         Random rand=new Random();   
         this.nodes=new ArrayList<>();
         nodes.ensureCapacity(numNodes);
         this.edges=new ArrayList<>();
         for(int i=0;i<numNodes;i++){
-            int x,y;
-            x=rand.nextInt(MAX_WIDTH);
-            y=rand.nextInt(MAX_HEIGHT);
-            //System.err.println(x+" , "+y);
+            double x,y;
+            x=rand.nextDouble()*maxWidth;
+            y=rand.nextDouble()*maxHeight;
             //avoid that nodes are to close
             for(int j=0;j<i;j++){
-                final int DRAW_OFFSET=100; 
-                while((this.nodes.get(j).getX()>(x-DRAW_OFFSET) && this.nodes.get(j).getX()<(x+DRAW_OFFSET)) &&
-                        (this.nodes.get(j).getY()>(y-DRAW_OFFSET) && this.nodes.get(j).getY()<(y+DRAW_OFFSET))){
-                    x=rand.nextInt(MAX_WIDTH);
-                    y=rand.nextInt(MAX_HEIGHT);
-                    //System.err.println("redone: "+x+" , "+y);
+                final int DRAW_OFFSET=50;
+                while(this.nodes.get(i-1).distance(new Node(x,y))<DRAW_OFFSET){
+                    x=rand.nextDouble()*maxWidth;
+                    y=rand.nextDouble()*maxHeight;
+                    System.err.println("distance"+this.nodes.get(i-1).distance(new Node(x,y)));
                 }
             }
             this.nodes.add(new Node(x,y));
         }
         //get edges via Delauney Triangulation
-        for (int i = 0; i < numNodes; i++) {
-            for (int j = i+1; j < numNodes; j++) {
-                for (int k = j+1; k < numNodes; k++) {
-                    boolean isTriangle = true;
-                    for (int a = 0; a < numNodes; a++) {
-                        if (a == i || a == j || a == k) continue;
-                        if (this.nodes.get(a).inside(this.nodes.get(i),
-                                this.nodes.get(j), this.nodes.get(k))) {
-                           isTriangle = false;
-                           break;
-                        }
-                    }
-                    if (isTriangle) {
-                        //new triangle so add edges, if not already present
-                        /*
-                        if(!this.hasEdge(i,j)){
-                        this.nodes.get(i).addEdge(this.nodes.get(j),
-                                rand.nextInt(maxCapacity));
-                        }
-                        if(!this.hasEdge(i,k)){
-                            this.nodes.get(i).addEdge(this.nodes.get(k),
-                                rand.nextInt(maxCapacity));
-                        }
-                        if(!this.hasEdge(j,k)){
-                            this.nodes.get(j).addEdge(this.nodes.get(k),
-                                rand.nextInt(maxCapacity));
-                        }
-                        */
-                        if(!this.hasEdge(i,j)){
-                            this.edges.add(new Edge(this.nodes.get(i),this.nodes.get(j),rand.nextInt(maxCapacity)));
-                            this.nodes.get(i).addEdge(this.edges.get(this.edges.size()-1));
-                            this.nodes.get(j).addEdge(this.edges.get(this.edges.size()-1));
-                            this.edges.add(new Edge(this.nodes.get(j),this.nodes.get(i),rand.nextInt(maxCapacity)));
-                            this.nodes.get(i).addEdge(this.edges.get(this.edges.size()-1));
-                            this.nodes.get(j).addEdge(this.edges.get(this.edges.size()-1));
-                        }
-                        if(!this.hasEdge(i,k)){
-                            this.edges.add(new Edge(this.nodes.get(i),this.nodes.get(k),rand.nextInt(maxCapacity)));
-                            this.nodes.get(i).addEdge(this.edges.get(this.edges.size()-1));
-                            this.nodes.get(k).addEdge(this.edges.get(this.edges.size()-1));
-                            this.edges.add(new Edge(this.nodes.get(k),this.nodes.get(i),rand.nextInt(maxCapacity)));
-                            this.nodes.get(i).addEdge(this.edges.get(this.edges.size()-1));
-                            this.nodes.get(k).addEdge(this.edges.get(this.edges.size()-1));
-                        }
-                        if(!this.hasEdge(j,k)){
-                            this.edges.add(new Edge(this.nodes.get(j),this.nodes.get(k),rand.nextInt(maxCapacity)));
-                            this.nodes.get(j).addEdge(this.edges.get(this.edges.size()-1));
-                            this.nodes.get(k).addEdge(this.edges.get(this.edges.size()-1));
-                            this.edges.add(new Edge(this.nodes.get(k),this.nodes.get(j),rand.nextInt(maxCapacity)));
-                            this.nodes.get(j).addEdge(this.edges.get(this.edges.size()-1));
-                            this.nodes.get(k).addEdge(this.edges.get(this.edges.size()-1));
-                        }
-                    }
-                }
-            }
+        Node[] triNodes = new Node[numNodes];
+        this.nodes.toArray(triNodes);
+        Delaunay triangulator=new Delaunay(triNodes);
+        triangulator.compute();
+        //add edges to graph and nodes
+        for(int i=0;i<triangulator.delEdges.size();i++){
+            Node from=triangulator.delEdges.get(i).orig();
+            Node to=triangulator.delEdges.get(i).dest();
+            int capacity=rand.nextInt(maxCapacity);
+            this.edges.add(new Edge(from, to, capacity));
+            from.addOutEdge(to,capacity);
+            to.addInEdge(from,capacity);
+            rand.nextInt(maxCapacity);
+            this.edges.add(new Edge(to, from, rand.nextInt(maxCapacity)));
+            to.addOutEdge(from,capacity);
+            from.addInEdge(to,capacity);
         }
-    }
-    
-    public boolean hasEdge(int from,int to){
-        for(Edge curEdge : this.edges){
-            if(curEdge.getFromNode().equals(this.nodes.get(from)) &&
-                    curEdge.getToNode().equals(this.nodes.get(to))){
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public String toString(){
-        String result=new String();
-        return result;
     }
 }
