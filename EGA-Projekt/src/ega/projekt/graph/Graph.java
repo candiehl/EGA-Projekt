@@ -55,7 +55,6 @@ public class Graph {
                 while(this.nodes.get(i-1).distance(new Node(x,y))<DRAW_OFFSET){
                     x=rand.nextDouble()*maxWidth;
                     y=rand.nextDouble()*maxHeight;
-                    System.err.println("distance"+this.nodes.get(i-1).distance(new Node(x,y)));
                 }
             }
             this.nodes.add(new Node(x,y));
@@ -69,7 +68,7 @@ public class Graph {
         for(int i=0;i<triangulator.delEdges.size();i++){
             Node from=triangulator.delEdges.get(i).orig();
             Node to=triangulator.delEdges.get(i).dest();
-            int capacity=rand.nextInt(maxCapacity);
+            int capacity=(rand.nextInt(maxCapacity-1)+1);
             this.edges.add(new Edge(from, to, capacity));
             from.addOutEdge(to,capacity);
             to.addInEdge(from,capacity);
