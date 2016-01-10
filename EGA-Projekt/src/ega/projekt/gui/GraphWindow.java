@@ -15,6 +15,8 @@ import ega.project.algorithm.*;
 import ega.projekt.graph.Properties;
 import ega.projekt.graphDraw.DrawGraph;
 import java.awt.FlowLayout;
+import java.awt.*;
+import javax.swing.*;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,8 +36,9 @@ public class GraphWindow extends javax.swing.JFrame {
      * Creates new form GraphWindow
      */
     public GraphWindow() {
-        graph = new ega.projekt.graph.Graph(Properties.getNodes(),Properties.getMax_capacity());
+        
         initComponents();
+        graph = new ega.projekt.graph.Graph(Properties.getNodes(),Properties.getMax_capacity(),DrawPanel.getWidth(), DrawPanel.getHeight());
         NextButton.setEnabled(next_enabled);
         switch (Properties.getAlgorithm()){
             case "FORD_FULK":
@@ -53,9 +56,8 @@ public class GraphWindow extends javax.swing.JFrame {
             default:
                 break;
         }
-        DrawPanel.setLayout(new FlowLayout());
+        DrawPanel.setLayout(new CardLayout());
         BasicVisualizationServer<Node, Edge> vv = DrawGraph.generatePanel(graph, DrawPanel.getWidth(), DrawPanel.getHeight());
-        JButton testButton = new JButton();       
         DrawPanel.add(vv);
         DrawPanel.revalidate();
         DrawPanel.repaint();
