@@ -68,7 +68,7 @@ public class PropertiesWindow extends javax.swing.JFrame {
 
         jLabel1.setText("# Nodes");
 
-        jnodes.setText("100");
+        jnodes.setText("10");
         jnodes.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
 
         jLabel2.setText("Maximum Capacity");

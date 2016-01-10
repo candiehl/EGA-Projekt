@@ -11,6 +11,7 @@ import edu.uci.ics.jung.graph.*;
 import edu.uci.ics.jung.visualization.*;
 import edu.uci.ics.jung.algorithms.layout.*;
 import edu.uci.ics.jung.io.*;
+import ega.project.algorithm.*;
 import ega.projekt.graph.Properties;
 
 
@@ -22,6 +23,7 @@ public class GraphWindow extends javax.swing.JFrame {
     
     private boolean next_enabled = true;
     private ega.projekt.graph.Graph graph;
+    private GraphAlgorithm algorithm;
     /**
      * Creates new form GraphWindow
      */
@@ -29,6 +31,23 @@ public class GraphWindow extends javax.swing.JFrame {
         graph = new ega.projekt.graph.Graph(Properties.getNodes(),Properties.getMax_capacity());
         initComponents();
         NextButton.setEnabled(next_enabled);
+        switch (Properties.getAlgorithm()){
+            case "FORD_FULK":
+                algorithm = new FordFulkerson(graph);
+                break;
+            case "ED_KARP":
+                algorithm = new EdmondsKarp();
+                break;
+            case "DINIC":
+                algorithm = new Dinic();
+                break;
+            case "GOLD_TAR":
+                algorithm = new GoldbergTarjan();
+                break;
+            default:
+                break;
+        }
+                
     }
 
     /**

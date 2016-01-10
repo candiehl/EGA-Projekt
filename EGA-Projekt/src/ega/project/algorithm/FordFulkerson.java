@@ -5,7 +5,8 @@
  */
 package ega.project.algorithm;
 
-import ega.projekt.graph.Graph;
+import ega.projekt.graph.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,9 +15,12 @@ import ega.projekt.graph.Graph;
 public class FordFulkerson implements GraphAlgorithm{
     
     Graph graph;
+    Node start;
+    Node end;
     
     public FordFulkerson(Graph rnd_graph) {
         graph = rnd_graph;
+        initialize();
     }
 
     @Override
@@ -26,7 +30,9 @@ public class FordFulkerson implements GraphAlgorithm{
 
     @Override
     public void initialize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Edge> edges = graph.getEdges();
+        start = edges.get(0).getFromNode();
+        end = edges.get(edges.size()-1).getFromNode();
     }
 
     @Override

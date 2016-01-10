@@ -9,23 +9,13 @@ package ega.projekt.graph;
  * @author Can
  */
 
-enum Algorithm{
-    FORD_FULK, ED_KARP, DINIC, GOLD_TAR
-};
 public class Properties {
     
     
     private static int nodes;
     private static int max_capacity;
     private static int instances;
-    private static Algorithm algorithm;
-    
-
-    public Properties() {
-        this.nodes = 0;
-        this.max_capacity = 0;
-        this.instances = 0;
-    }
+    private static String algorithm = "";
 
     public static void setNodes(int new_nodes) {
         nodes = new_nodes;
@@ -54,21 +44,21 @@ public class Properties {
     public static void setAlgorithm(String new_algorithm) {
         switch (new_algorithm) {
             case "Ford-Fulkerson":
-                algorithm = Algorithm.FORD_FULK;
+                algorithm = "FORD_FULK";
                 break;
             case "Edmonds-Karp":
-                algorithm = Algorithm.ED_KARP;
+                algorithm = "ED_KARP";
                 break;
             case "Dinic":
-                algorithm = Algorithm.DINIC;
+                algorithm = "DINIC";
                 break;
             case "Goldberg-Tarjan":
-                algorithm = Algorithm.GOLD_TAR;
+                algorithm = "GOLD_TAR";
                 break;
         }        
     }
     
-    public static Algorithm getAlgorithm() {
+    public static String getAlgorithm() {
         return algorithm;
     }
 }
