@@ -13,6 +13,12 @@ import edu.uci.ics.jung.algorithms.layout.*;
 import edu.uci.ics.jung.io.*;
 import ega.project.algorithm.*;
 import ega.projekt.graph.Properties;
+import ega.projekt.graphDraw.DrawGraph;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 
         /**
@@ -47,7 +53,12 @@ public class GraphWindow extends javax.swing.JFrame {
             default:
                 break;
         }
-                
+        DrawPanel.setLayout(new FlowLayout());
+        BasicVisualizationServer<Node, Edge> vv = DrawGraph.generatePanel(graph, DrawPanel.getWidth(), DrawPanel.getHeight());
+        JButton testButton = new JButton();       
+        DrawPanel.add(vv);
+        DrawPanel.revalidate();
+        DrawPanel.repaint();
     }
 
     /**
@@ -69,6 +80,7 @@ public class GraphWindow extends javax.swing.JFrame {
         setAlwaysOnTop(true);
 
         DrawPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        DrawPanel.setAutoscrolls(true);
 
         javax.swing.GroupLayout DrawPanelLayout = new javax.swing.GroupLayout(DrawPanel);
         DrawPanel.setLayout(DrawPanelLayout);

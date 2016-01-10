@@ -66,6 +66,7 @@
             <EtchetBorder/>
           </Border>
         </Property>
+        <Property name="autoscrolls" type="boolean" value="true"/>
       </Properties>
 
       <Layout>
