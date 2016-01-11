@@ -35,41 +35,50 @@ public class FordFulkerson implements GraphAlgorithm{
 
     public void initialize() {
         ArrayList<Node> nodes = graph.getNodes();
-        start = nodes.get(0);
-        end = nodes.get(nodes.size()-1);
         for(int i=0; i< nodes.size(); i++){
             map.put(nodes.get(i).getID(), 0);
         }
         //Initialize stack
+        nodes.get(0).setSeen(true);
+        start = nodes.get(0);
+        end = nodes.get(nodes.size()-1);
         curNode = start;
-        curNode.setSeen(true);
         stack.push(curNode);
+        System.out.println("Startknoten: "+start.getID());
+        System.out.println("Endknoten: "+end.getID());
+                
     }
 
     public boolean iteration() {
         int min_cap = Integer.MAX_VALUE;
         while(!stack.isEmpty()){
             int edgeCount = map.get(curNode.getID());
-            System.out.println(curNode.getID());
             //If edges are still available
+            //
             if(curNode.getOutEdges().size() > edgeCount){
                 Edge outEdge = curNode.getOutEdge(edgeCount);
                 map.put(curNode.getID(), (edgeCount+1));
-                curNode = outEdge.getToNode();
-                if (!curNode.isSeen()){
-                    curNode.setSeen(true);
+                if (!outEdge.getToNode().isSeen()){
+                    outEdge.getToNode().setSeen(true);
+                    curNode = outEdge.getToNode();
+                    System.out.println("From " + stack.peekFirst().getID() + "To " + curNode.getID());
                     stack.push(curNode);
+                    int cap = outEdge.getCapacity();
+                    if(cap < min_cap)
+                        min_cap = cap;
+                    System.out.println("Stacklength = "+stack.size());
                 }
-                int cap = outEdge.getCapacity();
-                if(cap < min_cap)
-                    min_cap = cap;
             }
             else {
+                curNode = stack.pop();
                 curNode.isFinished();
-                stack.pop();
+                System.out.println("Finished "+curNode.getID());
             }
         }
-        return true;
+        if(stack.isEmpty())
+            return false;
+        else
+            return true;
     }
 
     public boolean break_condition() {
