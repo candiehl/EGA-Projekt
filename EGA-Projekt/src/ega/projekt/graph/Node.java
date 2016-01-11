@@ -17,6 +17,24 @@ public class Node {
     private static int idCounter=0;
     private ArrayList<Edge> inEdges;
     private ArrayList<Edge> outEdges;
+    private boolean seen = false;
+    private boolean finished = false;
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+
+    public boolean isSeen() {
+        return seen;
+    }
+
+    public void setSeen(boolean seen) {
+        this.seen = seen;
+    }
         
     public Node(double x, double y, ArrayList<Edge> inEdges, ArrayList<Edge> outEdges){
         this.id=fetchID();

@@ -146,6 +146,7 @@ public class GraphWindow extends javax.swing.JFrame {
 
     private void NextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextButtonActionPerformed
         // TODO add your handling code here:
+        algorithm.iteration();
     }//GEN-LAST:event_NextButtonActionPerformed
 
     private void AutoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AutoButtonActionPerformed
